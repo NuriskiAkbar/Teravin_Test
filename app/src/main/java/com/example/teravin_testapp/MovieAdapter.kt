@@ -1,21 +1,18 @@
 package com.example.teravin_testapp
 
 import android.annotation.SuppressLint
-import android.content.ClipData.Item
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.teravin_testapp.databinding.ItemMovieBinding
 
-class MovieAdapter(private var movieList: List<Movie>):
+class MovieAdapter(private var movieList: List<ResultsItem>):
 RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
     class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bindData(movie: Movie) {
-            binding.textView.text = movie.results!![0]!!.originalTitle
-            binding.textView2.text = movie.results[0]!!.releaseDate
+        fun bindData(movie: ResultsItem) {
+            binding.textView.text = movie.originalTitle
+            binding.textView2.text = movie.releaseDate
         }
 
     }
@@ -32,7 +29,7 @@ RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newMovies: List<Movie>) {
+    fun updateData(newMovies: List<ResultsItem>) {
         movieList = newMovies
         notifyDataSetChanged()
     }

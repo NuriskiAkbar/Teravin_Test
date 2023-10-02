@@ -2,11 +2,13 @@ package com.example.teravin_testapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teravin_testapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,11 +34,13 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO){
             try {
                 val movies = movieRepository.fetchMovie()
-                movieAdapter.updateData(movies)
-            } catch (_: MovieRepository.ApiException){
-
-            } catch (_: Exception){
-
+                withContext(Dispatchers.Main){
+                    movieAdapter.updateData(movies)
+                }
+            } catch (e: MovieRepository.ApiException){
+                Log.e("MainActivity", "API Exception: $e")
+            } catch (e: Exception){
+                Log.e("MainActivity", "API Exception: $e")
             }
         }
     }

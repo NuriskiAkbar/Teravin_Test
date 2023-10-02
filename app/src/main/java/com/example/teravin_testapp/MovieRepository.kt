@@ -15,12 +15,12 @@ import java.io.IOException
 class MovieRepository {
     private val apiService = ApiService.getInstance().create(ApiInterface::class.java)
 
-     suspend fun fetchMovie(): List<Movie> {
+     suspend fun fetchMovie(): List<ResultsItem> {
         return withContext(Dispatchers.IO) {
             try {
                 val response: Response<Movie> = apiService.getNowPlayingMovie()
                 if (response.isSuccessful) {
-                    return@withContext (response.body()?.results ?: emptyList()) as List<Movie>
+                    return@withContext (response.body()?.results ?: emptyList()) as List<ResultsItem>
                 } else {
                     // Tangani jika permintaan gagal, misalnya, dengan melempar sebuah exception
                     throw ApiException("Failed to fetch movies")

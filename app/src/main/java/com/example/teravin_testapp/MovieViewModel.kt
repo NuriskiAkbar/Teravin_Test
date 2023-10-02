@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class MovieViewModel: ViewModel() {
-    val movieList = MutableLiveData<List<Movie>>()
+    val movieList = MutableLiveData<List<ResultsItem>>()
 
     fun loadMovies(){
         viewModelScope.launch {
